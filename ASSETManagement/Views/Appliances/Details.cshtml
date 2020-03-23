@@ -1,0 +1,26 @@
+﻿@model ASSETManagement.Models.Appliance
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Appliance</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplianceType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApplianceType)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ApplianceID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
