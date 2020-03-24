@@ -12,7 +12,7 @@ namespace ASSETManagement.Models
     public class Appliance
     {
         [Key]
-        public string ApplianceID { get; set; }
+        public Guid ApplianceID { get; set; }
 
         public string ApplianceType { get; set; }
 

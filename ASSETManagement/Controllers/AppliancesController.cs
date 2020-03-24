@@ -23,7 +23,7 @@ namespace ASSETManagement.Controllers
         }
 
         // GET: Appliances/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(Guid? id)
         {
             if (id == null)
             {
@@ -52,6 +52,7 @@ namespace ASSETManagement.Controllers
         {
             if (ModelState.IsValid)
             {
+                appliance.ApplianceID = Guid.NewGuid();
                 db.Appliances.Add(appliance);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -61,7 +62,7 @@ namespace ASSETManagement.Controllers
         }
 
         // GET: Appliances/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(Guid? id)
         {
             if (id == null)
             {
@@ -92,7 +93,7 @@ namespace ASSETManagement.Controllers
         }
 
         // GET: Appliances/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(Guid? id)
         {
             if (id == null)
             {
@@ -109,7 +110,7 @@ namespace ASSETManagement.Controllers
         // POST: Appliances/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(Guid id)
         {
             Appliance appliance = db.Appliances.Find(id);
             db.Appliances.Remove(appliance);

@@ -11,108 +11,108 @@ using ASSETManagement.Models;
 using AppContext = ASSETManagement.Data.AppContext;
 namespace ASSETManagement.Controllers
 {
-    public class AssetsController : Controller
+    public class ClientsController : Controller
     {
         private AppContext db = new AppContext();
 
-        // GET: Assets
+        // GET: Clients
         public ActionResult Index()
         {
-            return View(db.Assets.ToList());
+            return View(db.Clients.ToList());
         }
 
-        // GET: Assets/Details/5
+        // GET: Clients/Details/5
         public ActionResult Details(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Asset asset = db.Assets.Find(id);
-            if (asset == null)
+            Client client = db.Clients.Find(id);
+            if (client == null)
             {
                 return HttpNotFound();
             }
-            return View(asset);
+            return View(client);
         }
 
-        // GET: Assets/Create
+        // GET: Clients/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Assets/Create
+        // POST: Clients/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,Type,AskingRent")] Asset asset)
+        public ActionResult Create([Bind(Include = "ID,Name")] Client client)
         {
             if (ModelState.IsValid)
             {
-                asset.ID = Guid.NewGuid();
-                db.Assets.Add(asset);
+                client.ID = Guid.NewGuid();
+                db.Clients.Add(client);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(asset);
+            return View(client);
         }
 
-        // GET: Assets/Edit/5
+        // GET: Clients/Edit/5
         public ActionResult Edit(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Asset asset = db.Assets.Find(id);
-            if (asset == null)
+            Client client = db.Clients.Find(id);
+            if (client == null)
             {
                 return HttpNotFound();
             }
-            return View(asset);
+            return View(client);
         }
 
-        // POST: Assets/Edit/5
+        // POST: Clients/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,Type,AskingRent")] Asset asset)
+        public ActionResult Edit([Bind(Include = "ID,Name")] Client client)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(asset).State = EntityState.Modified;
+                db.Entry(client).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(asset);
+            return View(client);
         }
 
-        // GET: Assets/Delete/5
+        // GET: Clients/Delete/5
         public ActionResult Delete(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Asset asset = db.Assets.Find(id);
-            if (asset == null)
+            Client client = db.Clients.Find(id);
+            if (client == null)
             {
                 return HttpNotFound();
             }
-            return View(asset);
+            return View(client);
         }
 
-        // POST: Assets/Delete/5
+        // POST: Clients/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
-            Asset asset = db.Assets.Find(id);
-            db.Assets.Remove(asset);
+            Client client = db.Clients.Find(id);
+            db.Clients.Remove(client);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

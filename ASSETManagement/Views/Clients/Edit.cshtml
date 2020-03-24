@@ -1,4 +1,4 @@
-﻿@model ASSETManagement.Models.Asset
+﻿@model ASSETManagement.Models.Client
 
 @{
     ViewBag.Title = "Edit";
@@ -17,7 +17,7 @@
         @Html.AntiForgeryToken()
         
         <div class="form-horizontal">
-            <h4>Asset</h4>
+            <h4>Client</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.ID)
@@ -27,22 +27,6 @@
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Type, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
-                </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.AskingRent, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.AskingRent, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.AskingRent, "", new { @class = "text-danger" })
                 </div>
             </div>
     

@@ -14,15 +14,30 @@ namespace ASSETManagement.Data
         // automatically whenever you change your model schema, please use data migrations.
         // For more information refer to the documentation:
         // http://msdn.microsoft.com/en-us/data/jj591621.aspx
-    
+
         public AppContext() : base("name=AppContext")
         {
         }
 
-        public System.Data.Entity.DbSet<ASSETManagement.Models.Client> Customers { get; set; }
+        public System.Data.Entity.DbSet<ASSETManagement.Models.Appliance> Appliances { get; set; }
 
         public System.Data.Entity.DbSet<ASSETManagement.Models.Asset> Assets { get; set; }
 
-        public System.Data.Entity.DbSet<ASSETManagement.Models.Appliance> Appliances { get; set; }
+        public System.Data.Entity.DbSet<ASSETManagement.Models.Client> Clients { get; set; }
+
+
+        //public System.Data.Entity.DbSet<ASSETManagement.Models.Asset> Assets { get; set; }
+
+        //public System.Data.Entity.DbSet<ASSETManagement.Models.Appliance> Appliances { get; set; }
+
+        //public System.Data.Entity.DbSet<ASSETManagement.Models.Client> Clients { get; set; }
+    }
+
+    public class AppDBInitializer : CreateDatabaseIfNotExists<AppContext>
+    {
+        protected override void Seed(AppContext context)
+        {
+            base.Seed(context); //This is empty for now, but expected to have sample records later.
+        }
     }
 }
