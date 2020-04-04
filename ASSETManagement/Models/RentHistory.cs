@@ -10,17 +10,14 @@ namespace ASSETManagement.Models
     [Table("RentHistory")]
     public class RentHistory
     {
-        [Key]
-        public int ID { get; set; }
-        [ForeignKey("Asset")]
-        public Guid AssetID { get; set; }
-        [ForeignKey("Client")]
-        public Guid ClientID { get; set; }
+        
+        public Guid ID { get; set; }
+       
         public DateTime NegotiatedOn { get; set; }
         public string Details { get; set; }
 
         public virtual Asset Asset { get; set; }
-        public virtual Client Client { get; set; }
+        public virtual Person Person { get; set; }
 
 
     }

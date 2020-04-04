@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using ASSETManagement.Data;
 using ASSETManagement.Models;
 using AppContext = ASSETManagement.Data.AppContext;
+
 namespace ASSETManagement.Controllers
 {
     public class ClientsController : Controller
@@ -47,7 +48,7 @@ namespace ASSETManagement.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name")] Client client)
+        public ActionResult Create([Bind(Include = "ID,Name,ClientID")] Client client)
         {
             if (ModelState.IsValid)
             {
@@ -80,7 +81,7 @@ namespace ASSETManagement.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name")] Client client)
+        public ActionResult Edit([Bind(Include = "ID,Name,ClientID")] Client client)
         {
             if (ModelState.IsValid)
             {

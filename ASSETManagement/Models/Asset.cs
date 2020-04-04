@@ -10,8 +10,7 @@ namespace ASSETManagement.Models
     [Table("Asset")]
     public class Asset
     {
-        [Key]
-        public Guid ID { get; set; }
+        public Guid AssetID { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
         
@@ -24,6 +23,8 @@ namespace ASSETManagement.Models
         public virtual ICollection<Appliance> Appliances { get; set; }
 
         public virtual ICollection<Service> Services { get; set; }
+
+        public virtual Person Person { get; set; } //set relationship between asset<->customer
 
     }
 }

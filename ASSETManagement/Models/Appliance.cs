@@ -11,7 +11,6 @@ namespace ASSETManagement.Models
     [Table("Appliance")]
     public class Appliance
     {
-        [Key]
         public Guid ApplianceID { get; set; }
 
         public string ApplianceType { get; set; }

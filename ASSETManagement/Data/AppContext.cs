@@ -25,12 +25,14 @@ namespace ASSETManagement.Data
 
         public System.Data.Entity.DbSet<ASSETManagement.Models.Client> Clients { get; set; }
 
+        public System.Data.Entity.DbSet<ASSETManagement.Models.FullAddress> FullAddresses { get; set; }
 
-        //public System.Data.Entity.DbSet<ASSETManagement.Models.Asset> Assets { get; set; }
+        public System.Data.Entity.DbSet<ASSETManagement.Models.Occupancy> Occupancies { get; set; }
 
-        //public System.Data.Entity.DbSet<ASSETManagement.Models.Appliance> Appliances { get; set; }
+        public System.Data.Entity.DbSet<ASSETManagement.Models.Person> People { get; set; }
+        public System.Data.Entity.DbSet<ASSETManagement.Models.RentHistory> RentHistories { get; set; }
+        public System.Data.Entity.DbSet<ASSETManagement.Models.Service> Services { get; set; }
 
-        //public System.Data.Entity.DbSet<ASSETManagement.Models.Client> Clients { get; set; }
     }
 
     public class AppDBInitializer : CreateDatabaseIfNotExists<AppContext>

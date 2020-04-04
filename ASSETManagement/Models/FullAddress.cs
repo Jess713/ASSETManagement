@@ -10,8 +10,8 @@ namespace ASSETManagement.Models
     [Table("FullAddress")]
     public class FullAddress
     {
-        [Key]
-        public int ID { get; set; }
+        
+        public Guid ID { get; set; }
         public string UnitNum { get; set; }
         public string StreetAddress { get; set; }
         public string Province { get; set; }

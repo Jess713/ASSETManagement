@@ -48,7 +48,7 @@ namespace ASSETManagement.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ApplianceID,ApplianceType")] Appliance appliance)
+        public ActionResult Create([Bind(Include = "ApplianceType")] Appliance appliance)
         {
             if (ModelState.IsValid)
             {
@@ -81,7 +81,7 @@ namespace ASSETManagement.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ApplianceID,ApplianceType")] Appliance appliance)
+        public ActionResult Edit([Bind(Include = "ApplianceType")] Appliance appliance)
         {
             if (ModelState.IsValid)
             {

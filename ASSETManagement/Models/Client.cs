@@ -12,6 +12,9 @@ namespace ASSETManagement.Models
     [Table("Customers")]
     public class Client : Person
     {
+       public Guid ClientID { get; set; }
+
+       public virtual Asset Asset { get; set; }
        public virtual ICollection<Occupancy> OccupancyHistory { get; set; }
        public virtual ICollection<RentHistory> RentalHistory { get; set; }
     }

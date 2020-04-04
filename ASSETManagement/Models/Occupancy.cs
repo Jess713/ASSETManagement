@@ -10,14 +10,10 @@ namespace ASSETManagement.Models
     [Table("Occupancy")]
     public class Occupancy
     {
-        [Key]
+   
         public int ID { get; set; }
 
-        [ForeignKey("Asset")]
-        public Guid AssetID { get; set; }
-
-        [ForeignKey("Client")]
-        public Guid ClientID { get; set; }
+       
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public string Details { get; set; }

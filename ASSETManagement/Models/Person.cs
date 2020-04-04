@@ -10,7 +10,7 @@ namespace ASSETManagement.Models
     [Table("Person")]
     public class Person
     {
-        [Key]
+   
         public Guid ID { get; set; }
         public string Name { get; set; }
         public FullAddress HomeAddress { get; set; }
