@@ -48,11 +48,14 @@ namespace ASSETManagement.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,ClientID")] Client client)
+        public ActionResult Create([Bind(Include = "ID,Name,ClientID")] Client client, [Bind(Include="NegotiatedOn, Details, Asset")] RentHistory renthistory)
         {
             if (ModelState.IsValid)
             {
                 client.ID = Guid.NewGuid();
+                renthistory.ID = Guid.NewGuid();
+                renthistory.personID = client.ID;
+                client.RentalHistory.Add(renthistory);
                 db.Clients.Add(client);
                 db.SaveChanges();
                 return RedirectToAction("Index");

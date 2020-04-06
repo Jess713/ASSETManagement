@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ASSETManagement.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -33,6 +34,15 @@ namespace ASSETManagement.Data
         public System.Data.Entity.DbSet<ASSETManagement.Models.RentHistory> RentHistories { get; set; }
         public System.Data.Entity.DbSet<ASSETManagement.Models.Service> Services { get; set; }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            // configures one-to-many relationship
+            modelBuilder.Entity<RentHistory>()
+                .HasRequired<Client>(s => s.person)
+                .WithMany(g => g.RentalHistory)
+                .HasForeignKey<Guid>(s => s.personID);
+        }
+
     }
 
     public class AppDBInitializer : CreateDatabaseIfNotExists<AppContext>
@@ -42,4 +52,5 @@ namespace ASSETManagement.Data
             base.Seed(context); //This is empty for now, but expected to have sample records later.
         }
     }
+  
 }

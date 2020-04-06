@@ -15,9 +15,9 @@ namespace ASSETManagement.Models
        
         public DateTime NegotiatedOn { get; set; }
         public string Details { get; set; }
-
-        public virtual Asset Asset { get; set; }
-        public virtual Person Person { get; set; }
+        public Guid personID { get; set; }
+        public virtual Asset asset { get; set; }
+        public virtual Client person { get; set; }
 
 
     }
