@@ -19,6 +19,7 @@ namespace ASSETManagement.Controllers
         // GET: Clients
         public ActionResult Index()
         {
+            Session.Remove("customerID");
             return View(db.Clients.ToList());
         }
 
@@ -48,10 +49,13 @@ namespace ASSETManagement.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,ClientID")] Client client)
+        public ActionResult Create(Client client, FullAddress homeAddress)
         {
             if (ModelState.IsValid)
             {
+                homeAddress.ID = Guid.NewGuid();
+                client.HomeAddress = homeAddress;
+
                 client.ID = Guid.NewGuid();
                 db.Clients.Add(client);
                 db.SaveChanges();

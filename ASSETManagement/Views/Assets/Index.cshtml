@@ -7,7 +7,14 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Add New Asset", "Create")
+    @if (ViewBag.isOwner)
+    {
+        @Html.ActionLink("Create Asset", "Create")
+    }
+    else
+    {
+        @Html.ActionLink("Add Asset", "Create", "Occupancies")
+    }
 </p>
 <table class="table">
     <tr>
@@ -18,28 +25,54 @@
             @Html.DisplayNameFor(model => model.Type)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.AskingRent)
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            Current Occupant
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Type)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AskingRent)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.AssetID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.AssetID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.AssetID })
-        </td>
-    </tr>
-}
-
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address.Fulladdress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OccupancyHistory.FirstOrDefault().Client.Name)
+            </td>
+            <td>
+                @if (ViewBag.isOwner)
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.AssetID })
+                }
+                else
+                {
+                    @Html.ActionLink("Edit", "Edit", "Occupancies", new { id = item.OccupancyHistory.FirstOrDefault(x => x.ClientID == (Guid)Session["customerID"] && x.AssetID == item.AssetID || x.StartDate < DateTime.Today || x.EndDate > DateTime.Today).ID }, null)
+                }
+                |
+                @Html.ActionLink("Details", "Details", new { id = item.AssetID })
+                @if (ViewBag.isOwner)
+                {
+                    <span> | </span>
+                    @Html.ActionLink("Delete", "Delete", new { id = item.AssetID }, null)
+                    <span> | </span>
+                    @Html.ActionLink("Occupancy History", "Index", "Occupancies", new { id = item.AssetID }, null)
+                    <span> | </span>
+                    @Html.ActionLink("Rental History", "Index", "Rental", new { id = item.AssetID }, null)
+                }
+            </td>
+        </tr>
+    }
 </table>
+@if (!ViewBag.isOwner)
+{
+    @Html.ActionLink("Back to Clients", "Index", "Clients")
+}

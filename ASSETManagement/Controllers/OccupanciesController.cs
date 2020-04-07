@@ -17,9 +17,17 @@ namespace ASSETManagement.Controllers
         private AppContext db = new AppContext();
 
         // GET: Occupancies
-        public ActionResult Index()
+        public ActionResult Index(Guid? id)
         {
-            return View(db.Occupancies.ToList());
+            if (id == null)
+            {
+                return View(db.Occupancies.ToList());
+            }
+            else
+            {
+                ViewData["AssetName"] = db.Assets.Find(id).Name;
+                return View(db.Occupancies.Where(x => x.AssetID == id).ToList());
+            }
         }
 
         // GET: Occupancies/Details/5
@@ -40,6 +48,12 @@ namespace ASSETManagement.Controllers
         // GET: Occupancies/Create
         public ActionResult Create()
         {
+            Guid customerID = (Guid)Session["customerID"];
+            var assets = db.Assets
+                .Where(x => x.OccupancyHistory.All(o => o.Client.ID != customerID))
+                .ToList();
+            assets.Insert(0, null);
+            ViewBag.AssetID = new SelectList(assets, "AssetID", "Name", 0);
             return View();
         }
 
@@ -48,13 +62,14 @@ namespace ASSETManagement.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,StartDate,EndDate,Details")] Occupancy occupancy)
+        public ActionResult Create(Occupancy occupancy)
         {
             if (ModelState.IsValid)
             {
+                occupancy.ClientID = (Guid)Session["customerID"];
                 db.Occupancies.Add(occupancy);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Assets", new { customerID = Session["customerID"] });
             }
 
             return View(occupancy);

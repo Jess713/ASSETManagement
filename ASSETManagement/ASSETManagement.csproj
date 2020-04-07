@@ -198,7 +198,6 @@
     <Content Include="Views\Appliances\Edit.cshtml" />
     <Content Include="Views\Appliances\Index.cshtml" />
     <Content Include="Views\Assets\Create.cshtml" />
-    <Content Include="Views\Assets\Delete.cshtml" />
     <Content Include="Views\Assets\Details.cshtml" />
     <Content Include="Views\Assets\Edit.cshtml" />
     <Content Include="Views\Assets\Index.cshtml" />
@@ -214,6 +213,8 @@
     <Content Include="Views\Occupancies\Details.cshtml" />
     <Content Include="Views\Occupancies\Edit.cshtml" />
     <Content Include="Views\Occupancies\Index.cshtml" />
+    <Content Include="Views\Shared\FullAddress.cshtml" />
+    <Content Include="Views\Assets\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

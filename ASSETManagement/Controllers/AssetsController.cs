@@ -17,11 +17,25 @@ namespace ASSETManagement.Controllers
         private AppContext db = new AppContext();
 
         // GET: Assets
-        public ActionResult Index(Guid? id)
-        { //Shows only ASSETS currently rented by the client.
-            Session["customerID"] = id;
-            var assets = db.Assets.Where(x => x.Person.ID == id).Include(x => x.Name).ToList();//id:customer id passed from customer index view.
-            return View(assets.ToList());
+        public ActionResult Index(Guid? customerID)
+        {
+            //Shows only ASSETS currently rented by the client.
+            if (customerID == null)
+            {
+                Session.Remove("customerID");
+                ViewBag.isOwner = true;
+                return View(db.Assets.ToList());
+            }
+            else
+            {
+                Session["customerID"] = customerID;
+                ViewBag.isOwner = false;
+                //id:customer id passed from customer index view.
+                var assets = db.Assets
+                    .Where(x => x.OccupancyHistory.Any(o => o.Client.ID == customerID && o.StartDate <= DateTime.Now && o.EndDate >= DateTime.Now))
+                    .ToList();
+                return View(assets.ToList());
+            }
         }
 
         // GET: Assets/Details/5
@@ -44,23 +58,19 @@ namespace ASSETManagement.Controllers
         {
             return View();
         }
-        // TODO: Pressing Create New button shall bring all the assets
-        //currently not occupied thus allowing the user to add another asset to this client
-        //Does this mean there should be dummy Asset data already created from DB? 
-
-
-
-
 
         // POST: Assets/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Name,Type,AskingRent")] Asset asset)
+        public ActionResult Create(Asset asset, FullAddress fullAddress)
         {
             if (ModelState.IsValid)
             {
+                fullAddress.ID = Guid.NewGuid();
+                asset.Address = fullAddress;
+
                 asset.AssetID = Guid.NewGuid();
                 db.Assets.Add(asset);
                 db.SaveChanges();
@@ -91,13 +101,14 @@ namespace ASSETManagement.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Name,Type,AskingRent")] Asset asset, Occupancy occupancy)
+        public ActionResult Edit(Asset asset, FullAddress fullAddress)
         {
             if (ModelState.IsValid)
             {
+                asset.Address = fullAddress;
                 db.Entry(asset).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { customerID = Session["customerID"] });
             }
             return View(asset);
         }

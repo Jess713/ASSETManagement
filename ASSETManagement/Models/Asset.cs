@@ -13,18 +13,12 @@ namespace ASSETManagement.Models
         public Guid AssetID { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
-        
-        public FullAddress Address { get; set; }
+        public virtual FullAddress Address { get; set; }
         public string AskingRent { get; set; }
         public virtual ICollection<Occupancy> OccupancyHistory { get; set; }
-
         public virtual ICollection<RentHistory> RentalHistory { get; set; }
-
         public virtual ICollection<Appliance> Appliances { get; set; }
-
         public virtual ICollection<Service> Services { get; set; }
-
         public virtual Person Person { get; set; } //set relationship between asset<->customer
-
     }
 }

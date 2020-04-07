@@ -10,7 +10,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Asset</h4>
         <hr />
@@ -40,7 +40,8 @@
                 @Html.ValidationMessageFor(model => model.AskingRent, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        <h4>Address</h4>
+        @Html.Partial("FullAddress", Model.Address)
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
@@ -50,7 +51,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", new { customerID = @HttpContext.Current.Session["customerID"] })
 </div>
 
 @section Scripts {

@@ -17,5 +17,13 @@ namespace ASSETManagement.Models
         public string Province { get; set; }
         public string Country { get; set; }
         public string PostalCode { get; set; }
+
+        public string Fulladdress
+        {
+            get
+            {
+                return String.Format("{0} {1}, {2}, {3} {4}", UnitNum, StreetAddress, Province, Country, PostalCode); 
+            }
+        }
     }
 }
