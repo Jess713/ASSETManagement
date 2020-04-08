@@ -56,6 +56,13 @@ namespace ASSETManagement.Controllers
         // GET: Assets/Create
         public ActionResult Create()
         {
+            List<Object> type = new List<Object>();
+            type.Insert(0, new { Value = "" });
+            type.Insert(1, new { Value = "Room" });
+            type.Insert(2, new { Value = "Suite" });
+            type.Insert(3, new { Value = "Parking Lot" });
+            type.Insert(4, new { Value = "Locker" });
+            ViewBag.Type = new SelectList(type, "Value", "Value", 0);
             return View();
         }
 
@@ -89,6 +96,13 @@ namespace ASSETManagement.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Asset asset = db.Assets.Find(id);
+            List<Object> type = new List<Object>();
+            type.Insert(0, new { Value = asset.Type });
+            type.Insert(1, new { Value = "Room" });
+            type.Insert(2, new { Value = "Suite" });
+            type.Insert(3, new { Value = "Parking Lot" });
+            type.Insert(4, new { Value = "Locker" });
+            ViewBag.Type = new SelectList(type, "Value", "Value", 0);
             if (asset == null)
             {
                 return HttpNotFound();

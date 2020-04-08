@@ -95,13 +95,20 @@ namespace ASSETManagement.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,StartDate,EndDate,Details")] Occupancy occupancy)
+        public ActionResult Edit(Occupancy occupancy)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(occupancy).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                if (Session["customerID"] == null)
+                {
+                    return RedirectToAction("Index", "Occupancies", new { id = occupancy.AssetID });
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Assets", new { customerID = Session["customerID"] });
+                }
             }
             return View(occupancy);
         }

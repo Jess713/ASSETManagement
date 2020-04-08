@@ -116,6 +116,12 @@ namespace ASSETManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
+            var occupancies = db.Occupancies.Where(x => x.ClientID == id).ToList();
+            foreach (Occupancy o in occupancies)
+            {
+                o.Client = null;
+            }
+            db.SaveChanges();
             Client client = db.Clients.Find(id);
             db.Clients.Remove(client);
             db.SaveChanges();
