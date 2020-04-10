@@ -46,7 +46,7 @@ namespace Test
         public void NavigateToAsset()
         {
             // move to the homepage
-            driver.Url = "http://localhost:3000";
+            driver.Url = "https://localhost:44305/";
 
             // click the customer button 
             IWebElement customerBtn = driver.FindElement(By.LinkText("Assets"));
@@ -64,24 +64,24 @@ namespace Test
             Assert.AreEqual(tableHeads[3].Text, "Current Occupant");
         }
 
-    [Test]
-        public void NavigateToAppliance()
-        {
-            // move to the homepage
-            driver.Url = "http://localhost:3000";
+    //[Test]
+    //    public void NavigateToAppliance()
+    //    {
+    //        // move to the homepage
+    //        driver.Url = "https://localhost:44305/";
 
-            // click the customer button 
-            IWebElement customerBtn = driver.FindElement(By.LinkText("Appliances"));
-            customerBtn.Click();
+    //        // click the customer button 
+    //        IWebElement customerBtn = driver.FindElement(By.LinkText("Appliances"));
+    //        customerBtn.Click();
 
-            // verify that user is redirect to the customer list view
-            IWebElement indexLabel = driver.FindElement(By.CssSelector("h2"));
-            Assert.AreEqual(indexLabel.Text, "Index");
+    //        // verify that user is redirect to the customer list view
+    //        IWebElement indexLabel = driver.FindElement(By.CssSelector("h2"));
+    //        Assert.AreEqual(indexLabel.Text, "Index");
 
-            // check the list of table heads
-            ReadOnlyCollection<IWebElement> tableHeads = driver.FindElements(By.CssSelector("th"));
-            Assert.AreEqual(tableHeads[0].Text, "ApplianceType");
-        }
+    //        // check the list of table heads
+    //        ReadOnlyCollection<IWebElement> tableHeads = driver.FindElements(By.CssSelector("th"));
+    //        Assert.AreEqual(tableHeads[0].Text, "ApplianceType");
+    //    }
 
         [TearDown]
         public void Teardown()
