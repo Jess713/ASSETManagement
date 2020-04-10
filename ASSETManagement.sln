@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASSETManagement", "ASSETManagement\ASSETManagement.csproj", "{745E097D-609C-4E4B-8902-2B0D5A94E7D1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test", "NUnitTestProject1\Test.csproj", "{48F62C6E-57FF-4081-9B95-DAD1697BFC1B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{745E097D-609C-4E4B-8902-2B0D5A94E7D1} = {745E097D-609C-4E4B-8902-2B0D5A94E7D1}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
