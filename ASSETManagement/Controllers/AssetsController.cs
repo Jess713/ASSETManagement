@@ -50,6 +50,9 @@ namespace ASSETManagement.Controllers
             {
                 return HttpNotFound();
             }
+            Appliance a= db.Appliances.Find(asset.ApplianceID);
+            string name = a.ApplianceType;
+            ViewBag.ApplianceName =name;
             return View(asset);
         }
 
@@ -63,6 +66,16 @@ namespace ASSETManagement.Controllers
             type.Insert(3, new { Value = "Parking Lot" });
             type.Insert(4, new { Value = "Locker" });
             ViewBag.Type = new SelectList(type, "Value", "Value", 0);
+
+
+            ViewBag.AppliancesList = new SelectList(db.Appliances.ToList<Appliance>(), "ApplianceID", "ApplianceType",0 );
+
+
+
+
+
+
+
             return View();
         }
 
