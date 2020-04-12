@@ -11,9 +11,9 @@ namespace ASSETManagement.Models
     public class Service
     {
 
-        public Guid serviceID { get; set; }
+        public Guid ServiceID { get; set; }
 
-        public string serviceType { get; set; }
+        public string ServiceType { get; set; }
         public double price { get; set; }
 
     }

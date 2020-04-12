@@ -13,6 +13,7 @@ namespace ASSETManagement.Models
         public Guid AssetID { get; set; }
 
         public  Nullable<Guid> ApplianceID { get; set; }
+        public Nullable<Guid> ServiceID { get; set; }
 
         public string Name { get; set; }
         public string Type { get; set; }

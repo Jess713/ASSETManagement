@@ -38,11 +38,19 @@
             @Html.ValidationMessageFor(model => model.AskingRent, "", new { @class = "text-danger" })
         </div>
     </div>
-    <h4> Product </h4>
+    <h4> Appliance </h4>
     <table>
         <tr>
             <td>@Html.DisplayNameFor(model => model.ApplianceID) </td>
             <td> @Html.DropDownListFor(model => model.ApplianceID, (SelectList)ViewBag.AppliancesList, "") </td>
+
+        </tr>
+    </table>
+
+    <table>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.ServiceID) </td>
+            <td> @Html.DropDownListFor(model => model.ServiceID, (SelectList)ViewBag.ServiceList, "") </td>
 
         </tr>
     </table>
