@@ -68,7 +68,7 @@ namespace ASSETManagement.Controllers
             {
                 occupancy.ClientID = (Guid)Session["customerID"];
                 db.Occupancies.Add(occupancy);
-                db.SaveChanges();
+                //db.SaveChanges();
                 return RedirectToAction("Index", "Assets", new { customerID = Session["customerID"] });
             }
 
