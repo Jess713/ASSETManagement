@@ -39,7 +39,7 @@ namespace Test
             // move to the homepage
             driver.Url = MySetup.serverUrl;
 
-            // click the customer button 
+            // click the Assets button 
             IWebElement assetBtn = driver.FindElement(By.LinkText("Assets"));
             assetBtn.Click();
 
@@ -211,8 +211,13 @@ namespace Test
             enddate.Submit();
 
             string details = "room detail of room 306";
-            IWebElement detail = driver.FindElement(By.Id("Details"));
+
+            
+
+           IWebElement detail = driver.FindElement(By.Id("Details"));
             detail.SendKeys(details);
+        
+
 
             // click create button
             IWebElement createBtn3 = driver.FindElement(By.CssSelector("input[type=\'submit\']"));
