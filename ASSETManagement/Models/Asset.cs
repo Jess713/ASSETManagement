@@ -22,6 +22,7 @@ namespace ASSETManagement.Models
         public virtual FullAddress Address { get; set; }
         [Required]
         [RegularExpression("([0-9]+)")]
+        [Range(0, 6000000000, ErrorMessage = "Enter number between 0 to 6000000000")]
         public string AskingRent { get; set; }
         public virtual ICollection<Occupancy> OccupancyHistory { get; set; }
         public virtual ICollection<RentHistory> RentalHistory { get; set; }
