@@ -12,7 +12,9 @@ namespace ASSETManagement.Models
     {
         
         public Guid ID { get; set; }
-       
+        [Required]
+        [DataType(DataType.DateTime)]
+
         public DateTime NegotiatedOn { get; set; }
         public string Details { get; set; }
 

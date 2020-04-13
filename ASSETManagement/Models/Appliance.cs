@@ -13,6 +13,8 @@ namespace ASSETManagement.Models
     {
         public Guid ApplianceID { get; set; }
 
+        [Required]
+        [StringLength(160)]
         public string ApplianceType { get; set; }
 
 
