@@ -90,6 +90,7 @@ StyleCopReport.xml
 # ssibal mdf file 
 *.mdf
 *.log
+*.ldf
 
 # Chutzpah Test files
 _Chutzpah*
