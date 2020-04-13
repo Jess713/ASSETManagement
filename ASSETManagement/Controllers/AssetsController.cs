@@ -45,42 +45,8 @@ namespace ASSETManagement.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Asset asset = db.Assets.Find(id);
-            string name = "";
-            if (asset == null)
-            {
-                return HttpNotFound();
-            }
-            Appliance a;
-            try
-            {
-                a = db.Appliances.Find(asset.ApplianceID);
-                name = a.ApplianceType;
-
-            }
-            catch
-            {
-                name = "N/A";
-            }
-
-            Service s;
-            string serviceName = "";
-            string servicePrice = "";
-
-            try
-            {
-                s = db.Services.Find(asset.ServiceID);
-                serviceName = s.ServiceType;
-                servicePrice = ""+ s.price;
-            }
-            catch
-            {
-                serviceName = "N/A";
-                servicePrice = "N/A";
-            }
-            ViewBag.ApplianceName =name;
-            ViewBag.ServiceName = serviceName;
-            ViewBag.ServicePrice = servicePrice;
+            Asset asset = db.Assets.Include(x => x.Services).Include(x => x.Appliances).Where(x => x.AssetID == id).FirstOrDefault();
+            
             return View(asset);
         }
 
@@ -96,15 +62,15 @@ namespace ASSETManagement.Controllers
             ViewBag.Type = new SelectList(type, "Value", "Value", 0);
 
 
-            ViewBag.AppliancesList = new SelectList(db.Appliances.ToList<Appliance>(), "ApplianceID", "ApplianceType",0 );
+            var applicances = db.Appliances.ToList();
+            var services = db.Services.ToList();
+            applicances.Insert(0, null);
+            services.Insert(0, null);
 
-            ViewBag.ServiceList = new SelectList(db.Services.ToList<Service>(), "ServiceID", "ServiceType", 0);
+            ViewBag.ApplianceID = new SelectList(applicances, "ApplianceID", "ApplianceType", 0);
 
-
-
-
-
-
+            ViewBag.ServiceID = new SelectList(services, "ServiceID", "ServiceType", 0);
+                       
             return View();
         }
 

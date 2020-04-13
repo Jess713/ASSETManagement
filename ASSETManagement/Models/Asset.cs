@@ -21,9 +21,7 @@ namespace ASSETManagement.Models
         public string AskingRent { get; set; }
         public virtual ICollection<Occupancy> OccupancyHistory { get; set; }
         public virtual ICollection<RentHistory> RentalHistory { get; set; }
-        [NotMapped]
-        public virtual ICollection<Appliance> Appliances { get; set; }
-        public virtual ICollection<Service> Services { get; set; }
-        public virtual Person Person { get; set; } //set relationship between asset<->customer
+        public virtual Appliance Appliances { get; set; }
+        public virtual Service Services { get; set; }
     }
 }

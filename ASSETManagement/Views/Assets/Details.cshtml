@@ -41,27 +41,20 @@
         <dd>
             @Html.DisplayFor(model => model.Address)
         </dd>
-
         <dt>
-            Appliance Type
+            @Html.DisplayNameFor(model => model.Appliances)
         </dt>
-
         <dd>
-            @(ViewBag.ApplianceName)
+            @Html.DisplayFor(model => model.Appliances.ApplianceType)
         </dd>
-        <dt>
-            Service Name
-        </dt>
 
-        <dd>
-            @(ViewBag.ServiceName)
-        </dd>
         <dt>
-            Service Price
+            @Html.DisplayNameFor(model => model.Services)
         </dt>
-
         <dd>
-            @(ViewBag.ServicePrice)
+            @Html.DisplayFor(model => model.Services.ServiceType)
+            <br />
+            @Html.DisplayFor(model => model.Services.price)
         </dd>
     </dl>
 </div>
