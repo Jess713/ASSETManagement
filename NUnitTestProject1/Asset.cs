@@ -216,7 +216,7 @@ namespace Test
 
            IWebElement detail = driver.FindElement(By.Id("Details"));
             detail.SendKeys(details);
-            -------------------
+        
 
 
             // click create button
