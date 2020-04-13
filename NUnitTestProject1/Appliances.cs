@@ -26,8 +26,8 @@ namespace Test
 
 
 
-        [Test]
-        public void createAppliance()
+        
+        public void aCreateAppliance()
         {
             
 
@@ -57,8 +57,7 @@ namespace Test
 
         }
 
-        [Test]
-        public void editAppliance()
+        public void bEditAppliance()
         {
 
             //Mov to the main page
@@ -90,9 +89,9 @@ namespace Test
 
         }
 
-        [Test]
+        
 
-        public void deleteAppliances()
+        public void cDeleteAppliances()
         {
 
             //Move to the main page
@@ -120,8 +119,5 @@ namespace Test
         {
             driver.Close();
         }
-
-
-
     }
 }

@@ -46,7 +46,7 @@ namespace Test
         public void NavigateToAsset()
         {
             // move to the homepage
-            driver.Url = "https://localhost:44305/";
+            driver.Url = MySetup.serverUrl;
 
             // click the customer button 
             IWebElement customerBtn = driver.FindElement(By.LinkText("Assets"));
@@ -68,7 +68,7 @@ namespace Test
         public void NavigateToAppliance()
         {
             // move to the homepage
-            driver.Url = "https://localhost:44305/";
+            driver.Url = MySetup.serverUrl;
 
             // click the customer button 
             IWebElement customerBtn = driver.FindElement(By.LinkText("Appliances"));
