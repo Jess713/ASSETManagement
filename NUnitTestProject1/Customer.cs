@@ -18,14 +18,14 @@ namespace Test
         string testStreetAddress = "Forest Place";
         string testProvince = "BC";
         string testCountry = "Canada";
-        string testPostalCode = "123 456";
+        string testPostalCode = "123456";
 
         string testNameUpdate = "Cold Beer";
         string testUnitNumUpdate = "456";
         string testStreetAddressUpdate = "Fried";
         string testProvinceUpdate = "Chicken";
         string testCountryUpdate = "Yummy";
-        string testPostalCodeUpdate = "345 678";
+        string testPostalCodeUpdate = "345678";
 
         [SetUp]
         public void Setup()

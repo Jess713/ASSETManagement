@@ -14,6 +14,19 @@ namespace Test
     {
         IWebDriver driver;
 
+        string testName2 = "Charlie";
+        string testUnitNum2 = "123";
+        string testStreetAddress2 = "Forest Place";
+        string testProvince2 = "BC";
+        string testCountry2 = "Canada";
+        string testPostalCode2 = "123456";
+
+        string testNameUpdate = "Cold Beer";
+        string testUnitNumUpdate = "456";
+        string testStreetAddressUpdate = "Fried";
+        string testProvinceUpdate = "Chicken";
+        string testCountryUpdate = "Yummy";
+        string testPostalCodeUpdate = "345678";
 
         [SetUp]
         public void Setup()
@@ -21,11 +34,9 @@ namespace Test
             driver = new ChromeDriver(MySetup.chromeDriverLocation);
         }
 
-
         [Test]
-        public void createAsset()
+        public void aCreateAsset()
         {
-
             string testName = "room 306";
       
             int testAskingRent= 1200;
@@ -82,7 +93,7 @@ namespace Test
         }
 
         [Test]
-        public void assignAssetToCustomer()
+        public void bAssignAssetToCustomer()
         {
 
             string testName = "room 306";
@@ -138,21 +149,6 @@ namespace Test
             // check the created asset
             Assert.IsTrue(driver.FindElement(By.XPath("//td[contains(text(), \'" + testName + "\')]")).Displayed);
 
-
-
-            string testName2 = "Charlie";
-            string testUnitNum2 = "123";
-            string testStreetAddress2 = "Forest Place";
-            string testProvince2 = "BC";
-            string testCountry2 = "Canada";
-            string testPostalCode2 = "123 456";
-
-            string testNameUpdate = "Cold Beer";
-            string testUnitNumUpdate = "456";
-            string testStreetAddressUpdate = "Fried";
-            string testProvinceUpdate = "Chicken";
-            string testCountryUpdate = "Yummy";
-            string testPostalCodeUpdate = "345 678";
             // click the customer button 
             IWebElement customerBtn = driver.FindElement(By.LinkText("Customers"));
             customerBtn.Click();
@@ -183,7 +179,6 @@ namespace Test
             // check the created customer
             Assert.IsTrue(driver.FindElement(By.XPath("//td[contains(text(), \'" + testName2 + "\')]")).Displayed);
 
-
             IWebElement assignAssetBtn = driver.FindElement(By.Id("assign-asset"));
             assignAssetBtn.Click();
 
@@ -201,37 +196,90 @@ namespace Test
             selectElement2.SelectByText("room 306");
        
             IWebElement startdate = driver.FindElement(By.XPath("//form//input[@name='StartDate']"));
-            //Fill date as format, ie, MM/dd/yyyy
-            startdate.SendKeys("20200410");
-            startdate.Submit();
+            startdate.SendKeys("002020/01/01");
 
             IWebElement enddate = driver.FindElement(By.XPath("//form//input[@name='EndDate']"));
-            //Fill date as format, ie, MM/dd/yyyy
-            enddate.SendKeys("20200510");
-            enddate.Submit();
+            enddate.SendKeys("002020/04/01");
 
             string details = "room detail of room 306";
 
-            
-
-           IWebElement detail = driver.FindElement(By.Id("Details"));
+            IWebElement detail = driver.FindElement(By.Id("Details"));
             detail.SendKeys(details);
-        
-
-
+       
             // click create button
             IWebElement createBtn3 = driver.FindElement(By.CssSelector("input[type=\'submit\']"));
             createBtn3.Click();
 
             // check the created occupancy-----------------------
 
-
-
             // click the customer button 
             IWebElement goOccupancy = driver.FindElement(By.LinkText("Occupancies"));
             goOccupancy.Click();
 
             Assert.IsTrue(driver.FindElement(By.XPath("//td[contains(text(), \'" + testName2 + "\')]")).Displayed);
+        }
+
+        [Test]
+        public void cEditAsset()
+        {
+            // move to the homepage
+            driver.Url = MySetup.serverUrl;
+
+            // click the customer button
+            IWebElement customerBtn = driver.FindElement(By.LinkText("Customers"));
+            customerBtn.Click();
+
+            // click the edit button
+            IWebElement createNewBtn = driver.FindElement(By.LinkText("Edit"));
+            createNewBtn.Click();
+
+            // Modify text in the box
+            IWebElement nameInput = driver.FindElement(By.Id("Name"));
+            IWebElement unitNumInput = driver.FindElement(By.Id("UnitNum"));
+            IWebElement streetAddressInput = driver.FindElement(By.Id("StreetAddress"));
+            IWebElement provinceInput = driver.FindElement(By.Id("Province"));
+            IWebElement countryInput = driver.FindElement(By.Id("Country"));
+            IWebElement postalCodeInput = driver.FindElement(By.Id("PostalCode"));
+
+            nameInput.Clear();
+            unitNumInput.Clear();
+            streetAddressInput.Clear();
+            provinceInput.Clear();
+            countryInput.Clear();
+            postalCodeInput.Clear();
+
+            nameInput.SendKeys(testNameUpdate);
+            unitNumInput.SendKeys(testUnitNumUpdate);
+            streetAddressInput.SendKeys(testStreetAddressUpdate);
+            provinceInput.SendKeys(testProvinceUpdate);
+            countryInput.SendKeys(testCountryUpdate);
+            postalCodeInput.SendKeys(testPostalCodeUpdate);
+
+            IWebElement createBtn = driver.FindElement(By.CssSelector("input[type=\'submit\']"));
+            createBtn.Click();
+
+            Assert.IsTrue(driver.FindElement(By.XPath("//td[contains(text(), \'" + testNameUpdate + "\')]")).Displayed);
+        }
+
+        [Test]
+        public void dDeleteAsset()
+        {
+            // move to the homepage
+            driver.Url = MySetup.serverUrl;
+
+            // click the customer button
+            IWebElement customerBtn = driver.FindElement(By.LinkText("Customers"));
+            customerBtn.Click();
+
+            // click the delete button 1
+            IWebElement createNewBtn = driver.FindElement(By.LinkText("Delete"));
+            createNewBtn.Click();
+
+            // click the delete button 2
+            IWebElement createBtn = driver.FindElement(By.CssSelector("input[type=\'submit\']"));
+            createBtn.Click();
+
+            Assert.IsTrue(driver.FindElements(By.XPath("//td[contains(text(), \'" + testNameUpdate + "\')]")).Count == 0);
         }
 
 
