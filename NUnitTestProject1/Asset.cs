@@ -212,8 +212,7 @@ namespace Test
 
             string details = "room detail of room 306";
 
-            //-------------------
-            Testing for asset.cs error ( Not able to find the ID ' Details ')
+            
 
            IWebElement detail = driver.FindElement(By.Id("Details"));
             detail.SendKeys(details);
