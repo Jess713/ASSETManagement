@@ -12,6 +12,8 @@ namespace ASSETManagement.Models
     {
    
         public Guid ID { get; set; }
+        [Required]
+        [StringLength(160)]
         public string Name { get; set; }
         public virtual FullAddress HomeAddress { get; set; }
         public virtual FullAddress WorkAddress { get; set; }

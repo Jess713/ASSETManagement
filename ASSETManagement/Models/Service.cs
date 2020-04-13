@@ -12,8 +12,10 @@ namespace ASSETManagement.Models
     {
 
         public Guid ServiceID { get; set; }
-
+        [Required]
+        [StringLength(60, ErrorMessage = "Max 60 digits")]
         public string ServiceType { get; set; }
+        [Range(0, 6000000000, ErrorMessage = "Enter number between 0 to 6000000000")]
         public double price { get; set; }
 
     }

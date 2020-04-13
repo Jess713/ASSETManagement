@@ -12,8 +12,12 @@ namespace ASSETManagement.Models
     {
 
         public int ID { get; set; }
+        [Required]
+        [DataType(DataType.DateTime)]
+
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+
         public string Details { get; set; }
 
         //for the foreign key relationship
