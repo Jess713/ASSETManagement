@@ -86,6 +86,8 @@ namespace ASSETManagement.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(appliance).State = EntityState.Modified;
+
+                //gets error when try to 'edit'
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
