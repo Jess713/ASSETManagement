@@ -17,7 +17,7 @@ namespace ASSETManagement.Models
         [StringLength(160)]
         public string ApplianceType { get; set; }
 
+        public double price { get; set; }
 
-      
     }
 }
