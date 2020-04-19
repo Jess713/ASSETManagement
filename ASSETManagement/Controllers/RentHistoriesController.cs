@@ -12,137 +12,124 @@ using AppContext = ASSETManagement.Data.AppContext;
 
 namespace ASSETManagement.Controllers
 {
-    public class OccupanciesController : Controller
+    public class RentHistoriesController : Controller
     {
         private AppContext db = new AppContext();
 
-        // GET: Occupancies
+        // GET: RentHistories
         public ActionResult Index(Guid? assetID)
         {
             if (assetID == null)
             {
-                return View(db.Occupancies
-                    .GroupBy(x => x.ClientID)
-                    .SelectMany(x => x)
-                    .ToList());
+                return View(db.RentHistories.ToList());
             }
             else
             {
+                Session["AssetID"] = assetID;
                 ViewData["AssetName"] = db.Assets.Find(assetID).Name;
-                return View(db.Occupancies
-                    .Include(x => x.Client)
+                return View(db.RentHistories
                     .Include(x => x.Asset)
-                    .Include(x => x.Asset.Address)
-                    .Where(x => x.AssetID == assetID)
+                    .Where(x => x. AssetID == assetID)
                     .ToList());
             }
         }
 
-        // GET: Occupancies/Details/5
-        public ActionResult Details(int? id)
+
+        // GET: RentHistories/Details/5
+        public ActionResult Details(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Occupancy occupancy = db.Occupancies.Find(id);
-            if (occupancy == null)
+            RentHistory rentHistory = db.RentHistories.Find(id);
+            if (rentHistory == null)
             {
                 return HttpNotFound();
             }
-            return View(occupancy);
+            return View(rentHistory);
         }
 
-        // GET: Occupancies/Create
+        // GET: RentHistories/Create
         public ActionResult Create()
         {
-            Guid customerID = (Guid)Session["customerID"];
-            var assets = db.Assets
-                .Where(x => x.OccupancyHistory.All(o => o.Client.ID != customerID))
-                .ToList();
+            var assets = db.Assets.ToList();
             assets.Insert(0, null);
             ViewBag.AssetID = new SelectList(assets, "AssetID", "Name", 0);
             return View();
         }
 
-        // POST: Occupancies/Create
+        // POST: RentHistories/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Occupancy occupancy)
+        public ActionResult Create([Bind(Include = "ID,NegotiatedOn,Details")] RentHistory rentHistory)
         {
             if (ModelState.IsValid)
             {
-                occupancy.ClientID = (Guid)Session["customerID"];
-                db.Occupancies.Add(occupancy);
+                rentHistory.ID = Guid.NewGuid();
+                db.RentHistories.Add(rentHistory);
                 db.SaveChanges();
-                return RedirectToAction("Index", "Assets", new { customerID = Session["customerID"] });
+                return RedirectToAction("Index");
             }
 
-            return View(occupancy);
+            return View(rentHistory);
         }
 
-        // GET: Occupancies/Edit/5
-        public ActionResult Edit(int? id)
+        // GET: RentHistories/Edit/5
+        public ActionResult Edit(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Occupancy occupancy = db.Occupancies.Find(id);
-            if (occupancy == null)
+            RentHistory rentHistory = db.RentHistories.Find(id);
+            if (rentHistory == null)
             {
                 return HttpNotFound();
             }
-            return View(occupancy);
+            return View(rentHistory);
         }
 
-        // POST: Occupancies/Edit/5
+        // POST: RentHistories/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Occupancy occupancy)
+        public ActionResult Edit([Bind(Include = "ID,NegotiatedOn,Details")] RentHistory rentHistory)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(occupancy).State = EntityState.Modified;
+                db.Entry(rentHistory).State = EntityState.Modified;
                 db.SaveChanges();
-                if (Session["customerID"] == null)
-                {
-                    return RedirectToAction("Index", "Occupancies", new { id = occupancy.AssetID });
-                }
-                else
-                {
-                    return RedirectToAction("Index", "Assets", new { customerID = Session["customerID"] });
-                }
+                return RedirectToAction("Index", "RentHistorise", new { id = rentHistory.AssetID });
             }
-            return View(occupancy);
+            return View(rentHistory);
         }
 
-        // GET: Occupancies/Delete/5
-        public ActionResult Delete(int? id)
+        // GET: RentHistories/Delete/5
+        public ActionResult Delete(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Occupancy occupancy = db.Occupancies.Find(id);
-            if (occupancy == null)
+            RentHistory rentHistory = db.RentHistories.Find(id);
+            if (rentHistory == null)
             {
                 return HttpNotFound();
             }
-            return View(occupancy);
+            return View(rentHistory);
         }
 
-        // POST: Occupancies/Delete/5
+        // POST: RentHistories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(Guid id)
         {
-            Occupancy occupancy = db.Occupancies.Find(id);
-            db.Occupancies.Remove(occupancy);
+            RentHistory rentHistory = db.RentHistories.Find(id);
+            db.RentHistories.Remove(rentHistory);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

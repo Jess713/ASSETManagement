@@ -34,7 +34,7 @@ namespace ASSETManagement.Controllers
                 var assets = db.Assets
                     .Where(x => x.OccupancyHistory.Any(o => o.Client.ID == customerID && o.StartDate <= DateTime.Now && o.EndDate >= DateTime.Now))
                     .ToList();
-                return View(assets.ToList());
+                return View(assets);
             }
         }
 
@@ -88,6 +88,14 @@ namespace ASSETManagement.Controllers
 
                 asset.AssetID = Guid.NewGuid();
                 db.Assets.Add(asset);
+                
+                RentHistory rentHistory = new RentHistory();
+                rentHistory.ID = Guid.NewGuid();
+                rentHistory.AssetID = asset.AssetID;
+                rentHistory.Details = "Rent : " + asset.AskingRent;
+                rentHistory.NegotiatedOn = DateTime.Now;
+                db.RentHistories.Add(rentHistory);
+                
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -104,7 +112,7 @@ namespace ASSETManagement.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Asset asset = db.Assets.Find(id);
-
+            Session["Rent"] = asset.AskingRent;
             if (asset == null)
             {
                 return HttpNotFound();
@@ -125,6 +133,8 @@ namespace ASSETManagement.Controllers
             ViewBag.ApplianceID = new SelectList(applicances, "ApplianceID", "ApplianceType", asset.ApplianceID);
             ViewBag.ServiceID = new SelectList(services, "ServiceID", "ServiceType", asset.ServiceID);
 
+            ViewBag.occupied = asset.OccupancyHistory.Any(o => o.StartDate <= DateTime.Now && o.EndDate >= DateTime.Now);
+
             return View(asset);
         }
 
@@ -136,10 +146,22 @@ namespace ASSETManagement.Controllers
         public ActionResult Edit(Asset asset, FullAddress fullAddress)
         {
             if (ModelState.IsValid)
-            {
+            {               
                 asset.Address = fullAddress;
                 db.Entry(asset).State = EntityState.Modified;
+
+                if (Session["Rent"] != asset.AskingRent)
+                {
+                    RentHistory rentHistory = new RentHistory();
+                    rentHistory.ID = Guid.NewGuid();
+                    rentHistory.Asset = asset;
+                    rentHistory.Details = "Rent : " + asset.AskingRent;
+                    rentHistory.NegotiatedOn = DateTime.Now;
+                    db.RentHistories.Add(rentHistory);
+                }
                 db.SaveChanges();
+
+                Session.Remove("Rent");
                 return RedirectToAction("Index", new { customerID = Session["customerID"] });
             }
             return View(asset);

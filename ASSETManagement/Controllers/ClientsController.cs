@@ -20,7 +20,7 @@ namespace ASSETManagement.Controllers
         public ActionResult Index()
         {
             Session.Remove("customerID");
-            return View(db.Clients.ToList());
+            return View(db.Clients.OrderByDescending(x => x.Name).ToList());
         }
 
         // GET: Clients/Details/5

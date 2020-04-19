@@ -136,6 +136,7 @@
     <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OccupanciesController.cs" />
+    <Compile Include="Controllers\RentHistoriesController.cs" />
     <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Data\AppContext.cs" />
     <Compile Include="Global.asax.cs">
@@ -216,6 +217,11 @@
     <Content Include="Views\Services\Details.cshtml" />
     <Content Include="Views\Services\Edit.cshtml" />
     <Content Include="Views\Services\Index.cshtml" />
+    <Content Include="Views\RentHistories\Create.cshtml" />
+    <Content Include="Views\RentHistories\Delete.cshtml" />
+    <Content Include="Views\RentHistories\Details.cshtml" />
+    <Content Include="Views\RentHistories\Edit.cshtml" />
+    <Content Include="Views\RentHistories\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

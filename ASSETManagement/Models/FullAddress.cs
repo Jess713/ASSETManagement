@@ -10,8 +10,8 @@ namespace ASSETManagement.Models
     [Table("FullAddress")]
     public class FullAddress
     {
-        
         public Guid ID { get; set; }
+        [RegularExpression("([0-9]+)")] 
         public string UnitNum { get; set; }
         [Required]
         public string StreetAddress { get; set; }
@@ -20,13 +20,11 @@ namespace ASSETManagement.Models
         public string Province { get; set; }
         [Required]
         public string Country { get; set; }
-         [Required]
+        [Required]
         [MinLength(6, ErrorMessage = "Postal Code should be at least 6 character length.")]
         [StringLength(6, ErrorMessage = "Max 6 digits")]
-
         [DataType(DataType.PostalCode)]
         public string PostalCode { get; set; }
-
         public string Fulladdress
         {
             get
