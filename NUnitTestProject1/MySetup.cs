@@ -13,5 +13,6 @@ namespace Test
         // Jay
         public static string serverUrl = "http://localhost:3000/";
         public static string chromeDriverLocation = @"C:\CodingPrograms\chromedriver_win32";
+        public static string deployUrl = "https://assetmanagement20200419080944.azurewebsites.net/";
     }
 }
