@@ -104,6 +104,11 @@ namespace ASSETManagement.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Asset asset = db.Assets.Find(id);
+
+            if (asset == null)
+            {
+                return HttpNotFound();
+            }
             List<Object> type = new List<Object>();
             type.Insert(0, new { Value = asset.Type });
             type.Insert(1, new { Value = "Room" });
@@ -111,10 +116,15 @@ namespace ASSETManagement.Controllers
             type.Insert(3, new { Value = "Parking Lot" });
             type.Insert(4, new { Value = "Locker" });
             ViewBag.Type = new SelectList(type, "Value", "Value", 0);
-            if (asset == null)
-            {
-                return HttpNotFound();
-            }
+
+            var applicances = db.Appliances.ToList();
+            var services = db.Services.ToList();
+            applicances.Insert(0, null);
+            services.Insert(0, null);
+
+            ViewBag.ApplianceID = new SelectList(applicances, "ApplianceID", "ApplianceType", asset.ApplianceID);
+            ViewBag.ServiceID = new SelectList(services, "ServiceID", "ServiceType", asset.ServiceID);
+
             return View(asset);
         }
 
