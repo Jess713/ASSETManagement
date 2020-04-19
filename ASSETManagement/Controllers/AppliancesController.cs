@@ -12,6 +12,7 @@ using AppContext = ASSETManagement.Data.AppContext;
 
 namespace ASSETManagement.Controllers
 {
+    [Authorize]
     public class AppliancesController : Controller
     {
         private AppContext db = new AppContext();
