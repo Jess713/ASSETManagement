@@ -64,9 +64,9 @@
                     <span> | </span>
                     @Html.ActionLink("Delete", "Delete", new { id = item.AssetID }, null)
                     <span> | </span>
-                    @Html.ActionLink("Occupancy History", "Index", "Occupancies", new { id = item.AssetID }, null)
+                    @Html.ActionLink("Occupancy History", "Index", "Occupancies", new { assetID = item.AssetID }, null)
                     <span> | </span>
-                    @Html.ActionLink("Rental History", "Index", "Rental", new { id = item.AssetID }, null)
+                    @Html.ActionLink("Rental History", "Index", "RentHistories", new { assetID = item.AssetID }, null)
                 }
             </td>
         </tr>

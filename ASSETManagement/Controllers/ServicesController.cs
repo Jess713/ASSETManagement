@@ -11,6 +11,7 @@ using ASSETManagement.Models;
 
 namespace ASSETManagement.Controllers
 {
+    [Authorize]
     public class ServicesController : Controller
     {
         private ASSETManagement.Data.AppContext db = new ASSETManagement.Data.AppContext();

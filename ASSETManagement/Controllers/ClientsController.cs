@@ -12,6 +12,7 @@ using AppContext = ASSETManagement.Data.AppContext;
 
 namespace ASSETManagement.Controllers
 {
+    [Authorize]
     public class ClientsController : Controller
     {
         private AppContext db = new AppContext();
@@ -20,7 +21,7 @@ namespace ASSETManagement.Controllers
         public ActionResult Index()
         {
             Session.Remove("customerID");
-            return View(db.Clients.ToList());
+            return View(db.Clients.OrderByDescending(x => x.Name).ToList());
         }
 
         // GET: Clients/Details/5

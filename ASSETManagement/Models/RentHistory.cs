@@ -14,12 +14,10 @@ namespace ASSETManagement.Models
         public Guid ID { get; set; }
         [Required]
         [DataType(DataType.DateTime)]
-
         public DateTime NegotiatedOn { get; set; }
         public string Details { get; set; }
-
+        public virtual Guid AssetID { get; set; }
         public virtual Asset Asset { get; set; }
-        public virtual Person Person { get; set; }
 
 
     }

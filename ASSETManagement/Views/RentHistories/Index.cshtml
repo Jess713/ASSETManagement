@@ -1,0 +1,43 @@
+﻿@model IEnumerable<ASSETManagement.Models.RentHistory>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Rental History</h2>
+<h4>
+    For @ViewData["AssetName"]
+</h4>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Asset)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NegotiatedOn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Details)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Asset.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NegotiatedOn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Details)
+            </td>
+        </tr>
+    }
+
+</table>
+@if (ViewData["AssetName"] != null)
+{
+    @Html.ActionLink("Back to Asset", "Index", "Assets")
+}
