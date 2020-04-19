@@ -42,7 +42,7 @@ namespace Test
         string testStreetAddressAssetUpdate = "Waterfront";
         string testProvinceAssetUpdate = "Vancouver";
         string testCountryAssetUpdate = "Canada";
-        string testPostalCodeAssetUpdate = "ABCDER";
+        string testPostalCodeAssetUpdate = "ABCDER";        
 
         [SetUp]
         public void Setup()
@@ -64,9 +64,8 @@ namespace Test
             IWebElement createNewBtn = driver.FindElement(By.LinkText("Create Asset"));
             createNewBtn.Click();
 
-            // Enter text to the box
+            // Find elements to enter the test data
             IWebElement nameInput = driver.FindElement(By.Id("Name"));
-            // select the drop down list
             var dropdownType = driver.FindElement(By.Name("Type"));
             IWebElement askingRent = driver.FindElement(By.Id("AskingRent"));
             IWebElement unitNum = driver.FindElement(By.Id("UnitNum"));
@@ -77,10 +76,9 @@ namespace Test
 
             //create select element object 
             var selectElement = new SelectElement(dropdownType);
-
             nameInput.SendKeys(testNameAsset);
 
-            // select by text
+            // Enter test data to create asset
             selectElement.SelectByText("Room");
             askingRent.SendKeys(testAskingRentAsset.ToString());
             unitNum.SendKeys(testUnitNumAsset.ToString());
@@ -239,6 +237,53 @@ namespace Test
 
             Assert.IsTrue(driver.FindElements(By.XPath("//td[contains(text(), \'" + testNameAssetUpdate + "\')]")).Count == 0);
         }
+
+        [Test]
+        public void ePostalCode()
+        {
+            // move to the homepage
+            //driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(1);
+            driver.Url = MySetup.serverUrl;
+
+            // click the assets button
+            IWebElement customerBtn = driver.FindElement(By.LinkText("Assets"));
+            customerBtn.Click();
+
+            // click the create new button
+            IWebElement createNewBtn = driver.FindElement(By.LinkText("Create Asset"));
+            createNewBtn.Click();
+
+            // Find elements to enter the test data            
+            IWebElement postalCode = driver.FindElement(By.Id("PostalCode"));
+            IWebElement createBtn = driver.FindElement(By.CssSelector("input[type=\'submit\']"));
+
+            // Enter test datas
+            postalCode.SendKeys("12ABcd");            
+            createBtn.Click();
+            Assert.IsTrue(driver.FindElements(By.Id("PostalCode-error")).Count == 0);
+
+            postalCode.Clear();
+            postalCode.SendKeys("00AB$%");
+            createBtn.Click();
+            Assert.IsTrue(driver.FindElements(By.Id("PostalCode-error")).Count == 0);
+            
+            postalCode.Clear();
+            postalCode.SendKeys("12345");
+            createBtn.Click();
+            Assert.IsTrue(driver.FindElement(By.Id("PostalCode-error")).Displayed);
+
+            postalCode.Clear();
+            postalCode.SendKeys("ABCdefg");
+            createBtn.Click();
+            Assert.IsTrue(driver.FindElement(By.Id("PostalCode-error")).Displayed);
+
+            postalCode.Clear();
+            postalCode.SendKeys("");            
+            createBtn.Click();            
+            Assert.IsTrue(driver.FindElement(By.Id("PostalCode-error")).Displayed);
+        }
+
+
 
         [TearDown]
         public void Teardown()
