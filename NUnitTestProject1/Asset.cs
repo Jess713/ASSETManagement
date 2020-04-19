@@ -14,6 +14,35 @@ namespace Test
     {
         IWebDriver driver;
 
+        string testNameCustomer = "Charlie";
+        string testUnitNumCustomer = "123";
+        string testStreetAddressCustomer = "Forest Place";
+        string testProvinceCustomer = "BC";
+        string testCountryCustomer = "Canada";
+        string testPostalCodeCustomer = "123456";
+
+        string testNameCustomerUpdate = "Cold Beer";
+        string testUnitNumCustomerUpdate = "456";
+        string testStreetAddressCustomerUpdate = "Fried";
+        string testProvinceCustomerUpdate = "Chicken";
+        string testCountryCustomerUpdate = "Yummy";
+        string testPostalCodeCustomerUpdate = "345678";
+
+        string testNameAsset = "room 306";
+        int testAskingRentAsset = 1200;
+        int testUnitNumAsset = 306;
+        string testStreetAddressAsset = "1534 Willingdon Ave";
+        string testProvinceAsset = "Burnaby";
+        string testCountryAsset = "Canada";
+        string testPostalCodeAsset = "V4J1WK";
+
+        string testNameAssetUpdate = "room 1907";
+        int testAskingRentAssetUpdate = 1700;
+        int testUnitNumAssetUpdate = 23;
+        string testStreetAddressAssetUpdate = "Waterfront";
+        string testProvinceAssetUpdate = "Vancouver";
+        string testCountryAssetUpdate = "Canada";
+        string testPostalCodeAssetUpdate = "ABCDER";        
 
         [SetUp]
         public void Setup()
@@ -21,21 +50,9 @@ namespace Test
             driver = new ChromeDriver(MySetup.chromeDriverLocation);
         }
 
-
         [Test]
-        public void createAsset()
+        public void aCreateAsset()
         {
-
-            string testName = "room 306";
-      
-            int testAskingRent= 1200;
-            int testUnitNum= 306;
-            string testStreetAddress= "1534 Willingdon Ave";
-            string testProvince = "Burnaby";
-
-            string testCountry= "Canada";
-            string testPostalCode= "V4J1WK";
-
             // move to the homepage
             driver.Url = MySetup.serverUrl;
 
@@ -47,9 +64,8 @@ namespace Test
             IWebElement createNewBtn = driver.FindElement(By.LinkText("Create Asset"));
             createNewBtn.Click();
 
-            // Enter text to the box
+            // Find elements to enter the test data
             IWebElement nameInput = driver.FindElement(By.Id("Name"));
-            // select the drop down list
             var dropdownType = driver.FindElement(By.Name("Type"));
             IWebElement askingRent = driver.FindElement(By.Id("AskingRent"));
             IWebElement unitNum = driver.FindElement(By.Id("UnitNum"));
@@ -60,99 +76,31 @@ namespace Test
 
             //create select element object 
             var selectElement = new SelectElement(dropdownType);
+            nameInput.SendKeys(testNameAsset);
 
-            nameInput.SendKeys(testName);
-
-            // select by text
+            // Enter test data to create asset
             selectElement.SelectByText("Room");
-            askingRent.SendKeys(testAskingRent.ToString());
-            unitNum.SendKeys(testUnitNum.ToString());
-            streetAddress.SendKeys(testStreetAddress);
-            province.SendKeys(testProvince);
-            country.SendKeys(testCountry);
-            postalCode.SendKeys(testPostalCode);
+            askingRent.SendKeys(testAskingRentAsset.ToString());
+            unitNum.SendKeys(testUnitNumAsset.ToString());
+            streetAddress.SendKeys(testStreetAddressAsset);
+            province.SendKeys(testProvinceAsset);
+            country.SendKeys(testCountryAsset);
+            postalCode.SendKeys(testPostalCodeAsset);
 
             // click create button
             IWebElement createBtn = driver.FindElement(By.CssSelector("input[type=\'submit\']"));
             createBtn.Click();
 
             // check the created asset
-            Assert.IsTrue(driver.FindElement(By.XPath("//td[contains(text(), \'" + testName + "\')]")).Displayed);
-
+            Assert.IsTrue(driver.FindElement(By.XPath("//td[contains(text(), \'" + testNameAsset + "\')]")).Displayed);
         }
 
         [Test]
-        public void assignAssetToCustomer()
+        public void bAssignAssetToCustomer()
         {
-
-            string testName = "room 306";
-
-            int testAskingRent = 1200;
-            int testUnitNum = 306;
-            string testStreetAddress = "1534 Willingdon Ave";
-            string testProvince = "Burnaby";
-
-            string testCountry = "Canada";
-            string testPostalCode = "V4J1WK";
-
             // move to the homepage
             driver.Url = MySetup.serverUrl;
 
-            // click the customer button 
-            IWebElement assetBtn = driver.FindElement(By.LinkText("Assets"));
-            assetBtn.Click();
-
-            // click the create new button
-            IWebElement createNewBtn = driver.FindElement(By.LinkText("Create Asset"));
-            createNewBtn.Click();
-
-            // Enter text to the box
-            IWebElement nameInput = driver.FindElement(By.Id("Name"));
-            // select the drop down list
-            var dropdownType = driver.FindElement(By.Name("Type"));
-            IWebElement askingRent = driver.FindElement(By.Id("AskingRent"));
-            IWebElement unitNum = driver.FindElement(By.Id("UnitNum"));
-            IWebElement streetAddress = driver.FindElement(By.Id("StreetAddress"));
-            IWebElement province = driver.FindElement(By.Id("Province"));
-            IWebElement country = driver.FindElement(By.Id("Country"));
-            IWebElement postalCode = driver.FindElement(By.Id("PostalCode"));
-
-            //create select element object 
-            var selectElement = new SelectElement(dropdownType);
-
-            nameInput.SendKeys(testName);
-
-            // select by text
-            selectElement.SelectByText("Room");
-            askingRent.SendKeys(testAskingRent.ToString());
-            unitNum.SendKeys(testUnitNum.ToString());
-            streetAddress.SendKeys(testStreetAddress);
-            province.SendKeys(testProvince);
-            country.SendKeys(testCountry);
-            postalCode.SendKeys(testPostalCode);
-
-            // click create button
-            IWebElement createBtn = driver.FindElement(By.CssSelector("input[type=\'submit\']"));
-            createBtn.Click();
-
-            // check the created asset
-            Assert.IsTrue(driver.FindElement(By.XPath("//td[contains(text(), \'" + testName + "\')]")).Displayed);
-
-
-
-            string testName2 = "Charlie";
-            string testUnitNum2 = "123";
-            string testStreetAddress2 = "Forest Place";
-            string testProvince2 = "BC";
-            string testCountry2 = "Canada";
-            string testPostalCode2 = "123 456";
-
-            string testNameUpdate = "Cold Beer";
-            string testUnitNumUpdate = "456";
-            string testStreetAddressUpdate = "Fried";
-            string testProvinceUpdate = "Chicken";
-            string testCountryUpdate = "Yummy";
-            string testPostalCodeUpdate = "345 678";
             // click the customer button 
             IWebElement customerBtn = driver.FindElement(By.LinkText("Customers"));
             customerBtn.Click();
@@ -169,20 +117,19 @@ namespace Test
             IWebElement countryInput2 = driver.FindElement(By.Id("Country"));
             IWebElement postalCodeInput2 = driver.FindElement(By.Id("PostalCode"));
 
-            nameInput2.SendKeys(testName2);
-            unitNumInput2.SendKeys(testUnitNum2);
-            streetAddressInput2.SendKeys(testStreetAddress2);
-            provinceInput2.SendKeys(testProvince2);
-            countryInput2.SendKeys(testCountry2);
-            postalCodeInput2.SendKeys(testPostalCode2);
+            nameInput2.SendKeys(testNameCustomer);
+            unitNumInput2.SendKeys(testUnitNumCustomer);
+            streetAddressInput2.SendKeys(testStreetAddressCustomer);
+            provinceInput2.SendKeys(testProvinceCustomer);
+            countryInput2.SendKeys(testCountryCustomer);
+            postalCodeInput2.SendKeys(testPostalCodeCustomer);
 
             // click create button
             IWebElement createBtn2 = driver.FindElement(By.CssSelector("input[type=\'submit\']"));
             createBtn2.Click();
 
             // check the created customer
-            Assert.IsTrue(driver.FindElement(By.XPath("//td[contains(text(), \'" + testName2 + "\')]")).Displayed);
-
+            Assert.IsTrue(driver.FindElement(By.XPath("//td[contains(text(), \'" + testNameCustomer + "\')]")).Displayed);
 
             IWebElement assignAssetBtn = driver.FindElement(By.Id("assign-asset"));
             assignAssetBtn.Click();
@@ -196,43 +143,146 @@ namespace Test
             //create select element object 
             var selectElement2 = new SelectElement(dropdownAssets);
 
-
             // select by text
-            selectElement2.SelectByText("room 306");
+            selectElement2.SelectByText(testNameAsset);
        
             IWebElement startdate = driver.FindElement(By.XPath("//form//input[@name='StartDate']"));
-            //Fill date as format, ie, MM/dd/yyyy
-            startdate.SendKeys("20200410");
-            startdate.Submit();
+            startdate.SendKeys("002020/01/01");
 
             IWebElement enddate = driver.FindElement(By.XPath("//form//input[@name='EndDate']"));
-            //Fill date as format, ie, MM/dd/yyyy
-            enddate.SendKeys("20200510");
-            enddate.Submit();
+            enddate.SendKeys("002020/04/01");
 
             string details = "room detail of room 306";
 
-            
-
-           IWebElement detail = driver.FindElement(By.Id("Details"));
+            IWebElement detail = driver.FindElement(By.Id("Details"));
             detail.SendKeys(details);
-        
-
-
+       
             // click create button
             IWebElement createBtn3 = driver.FindElement(By.CssSelector("input[type=\'submit\']"));
             createBtn3.Click();
 
             // check the created occupancy-----------------------
 
-
-
             // click the customer button 
             IWebElement goOccupancy = driver.FindElement(By.LinkText("Occupancies"));
             goOccupancy.Click();
 
-            Assert.IsTrue(driver.FindElement(By.XPath("//td[contains(text(), \'" + testName2 + "\')]")).Displayed);
+            Assert.IsTrue(driver.FindElement(By.XPath("//td[contains(text(), \'" + testNameCustomer + "\')]")).Displayed);
         }
+
+        [Test]
+        public void cEditAsset()
+        {
+            // move to the homepage
+            driver.Url = MySetup.serverUrl;
+
+            // click the assets buton
+            IWebElement customerBtn = driver.FindElement(By.LinkText("Assets"));
+            customerBtn.Click();
+
+            // click the edit button
+            IWebElement createNewBtn = driver.FindElement(By.LinkText("Edit"));
+            createNewBtn.Click();
+
+            IWebElement nameInput = driver.FindElement(By.Id("Name"));
+            var dropdownType = driver.FindElement(By.Name("Type"));
+            var selectElement = new SelectElement(dropdownType);
+            IWebElement askingRent = driver.FindElement(By.Id("AskingRent"));
+            IWebElement unitNum = driver.FindElement(By.Id("UnitNum"));
+            IWebElement streetAddress = driver.FindElement(By.Id("StreetAddress"));
+            IWebElement province = driver.FindElement(By.Id("Province"));
+            IWebElement country = driver.FindElement(By.Id("Country"));
+            IWebElement postalCode = driver.FindElement(By.Id("PostalCode"));
+
+            nameInput.Clear();
+            askingRent.Clear();
+            unitNum.Clear();
+            streetAddress.Clear();
+            province.Clear();
+            country.Clear();
+            postalCode.Clear();
+
+            nameInput.SendKeys(testNameAssetUpdate);
+            selectElement.SelectByText("Room");
+            askingRent.SendKeys(testAskingRentAssetUpdate.ToString());
+            unitNum.SendKeys(testUnitNumAssetUpdate.ToString());
+            streetAddress.SendKeys(testStreetAddressAssetUpdate);
+            province.SendKeys(testProvinceAssetUpdate);
+            country.SendKeys(testCountryAssetUpdate);
+            postalCode.SendKeys(testPostalCodeAssetUpdate);
+
+            IWebElement createBtn = driver.FindElement(By.CssSelector("input[type=\'submit\']"));
+            createBtn.Click();
+
+            Assert.IsTrue(driver.FindElement(By.XPath("//td[contains(text(), \'" + testNameAssetUpdate + "\')]")).Displayed);
+        }
+
+        [Test]
+        public void dDeleteAsset()
+        {
+            // move to the homepage
+            driver.Url = MySetup.serverUrl;
+
+            // click the assets button
+            IWebElement customerBtn = driver.FindElement(By.LinkText("Assets"));
+            customerBtn.Click();
+
+            // click the delete button 1
+            IWebElement createNewBtn = driver.FindElement(By.LinkText("Delete"));
+            createNewBtn.Click();
+
+            // click the delete button 2
+            IWebElement createBtn = driver.FindElement(By.CssSelector("input[type=\'submit\']"));
+            createBtn.Click();
+
+            Assert.IsTrue(driver.FindElements(By.XPath("//td[contains(text(), \'" + testNameAssetUpdate + "\')]")).Count == 0);
+        }
+
+        [Test]
+        public void ePostalCode()
+        {
+            // move to the homepage
+            //driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(1);
+            driver.Url = MySetup.serverUrl;
+
+            // click the assets button
+            IWebElement customerBtn = driver.FindElement(By.LinkText("Assets"));
+            customerBtn.Click();
+
+            // click the create new button
+            IWebElement createNewBtn = driver.FindElement(By.LinkText("Create Asset"));
+            createNewBtn.Click();
+
+            // Find elements to enter the test data            
+            IWebElement postalCode = driver.FindElement(By.Id("PostalCode"));
+            IWebElement createBtn = driver.FindElement(By.CssSelector("input[type=\'submit\']"));
+
+            // Enter test datas
+            postalCode.SendKeys("12ABcd");            
+            createBtn.Click();
+            Assert.IsTrue(driver.FindElements(By.Id("PostalCode-error")).Count == 0);
+
+            postalCode.Clear();
+            postalCode.SendKeys("00AB$%");
+            createBtn.Click();
+            Assert.IsTrue(driver.FindElements(By.Id("PostalCode-error")).Count == 0);
+            
+            postalCode.Clear();
+            postalCode.SendKeys("12345");
+            createBtn.Click();
+            Assert.IsTrue(driver.FindElement(By.Id("PostalCode-error")).Displayed);
+
+            postalCode.Clear();
+            postalCode.SendKeys("ABCdefg");
+            createBtn.Click();
+            Assert.IsTrue(driver.FindElement(By.Id("PostalCode-error")).Displayed);
+
+            postalCode.Clear();
+            postalCode.SendKeys("");            
+            createBtn.Click();            
+            Assert.IsTrue(driver.FindElement(By.Id("PostalCode-error")).Displayed);
+        }
+
 
 
         [TearDown]
